@@ -1,0 +1,85 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+body,p,h1,h2,h3,h4{
+    margin: 0;
+}
+ul{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+img{
+    border: none;
+    vertical-align: middle ;
+}
+a{
+    text-decoration: none;
+    color:#3c3c3c;
+}
+i{
+    font-style: normal;
+}
+input,button{
+    margin: 0;
+    padding: 0;
+}
+button{
+    outline: none;;
+}
+body{
+    /* line-height:1.5 用数字表示会有一个继承效果，使子类的的font-size与1.5计算出行高，而其他诸如1.5em则是用父类的font-size计算*/
+    font: 12px/1.5 tahoma,arial,'Hiragino Sans GB','\5b8b\4f53',sans-serif;
+    color: #3c3c3c;
+    background-color: #fff;
+}
+table{
+    border-collapse: collapse;  /* 边框模式：合并模式（两个1px表格边框合并成1px）  */
+}
+th,td{
+    padding: 0;
+}
+
+.clearfix:after{
+    content: '';
+    display: block;
+    clear: both;
+
+}
+.fl{
+    float: left;
+}
+.fr{
+    float: right;
+}
+
+.layer{
+    width: 1190px;
+    margin: 0 auto;
+}
+
+.c4{
+    color: #f40;
+}
+.c5{
+    color: #f50;
+}
+.c6{
+    color: #8d7afb;
+}
+.c7{
+    color: #a8c001;
+}
+.mr5{
+    margin-right: 5px;
+}
+.mr7{
+    margin-right: 7px;
+}
+.mt10{
+    margin-top: 10px;
+}
+.mr10{
+    margin-right: 10px;
+}
