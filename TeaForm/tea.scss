@@ -2,14 +2,20 @@ body {
 	display: flex;
 	justify-content: center;
 	font-family: FZShuTi;
+	background-image: url(./i1.jpg);
 }
 .all {
 	width: 480px;
 	height: 800px;
-	border: 2px solid black;
+	border: 0px solid black;
 	border-radius: 30px;
 	text-align: center;
 	line-height: 30px;
+	background-color: #fff;
+	opacity: 0.9;
+	input{
+		border-radius: 5px;
+	}
 	h1 {
 		padding: 15px;
 	}
