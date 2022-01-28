@@ -12,13 +12,13 @@
 		<form action="#">
 			<h1>Order your milk tea!</h1>
 			<hr>
-			<label for="q1">你想要什么口味的奶茶?</label>
+			<label for="taste">你想要什么口味的奶茶?</label>
 			<!-- 口味接口 -->
-			<input type="text" name="taste" id="q1" autofocus minlength="2" maxlength="10">
+			<input type="text" name="taste" id="taste" autofocus minlength="2" maxlength="10">
 			<hr width="15%">
-			<label for="q2">需要几杯？</label>
+			<label for="cup">需要几杯？</label>
 			<!-- 要几杯接口 -->
-			<input type="number" name="cup" id="q2" required min="1" max="4">
+			<input type="number" name="cup" id="cup" required min="1" max="4">
 			<hr width="15%">
 			<!-- 糖分量接口 -->
 			<div>你需要的糖分量?</div>
@@ -32,21 +32,21 @@
 			<hr width="15%">
 			<div>需要加冰码？</div>
 			<!-- 冰接口 -->
-			<input type="radio" name=ice>Yes
-			<input type="radio" name=ice>No
+			<input type="radio" name="ice">Yes
+			<input type="radio" name="ice">No
 			<hr width="15%">
 			<span>你需要加什么料?</span>
 			<!-- 料接口 -->
 			<select name="liao" id="l">
-				<option value="zhenzhu">珍珠</option>
-				<option value="zhenzhu">还是珍珠</option>
-				<option value="zhenzhu">布丁</option>
-				<option value="zhenzhu">还是珍珠</option>
+				<option value="liao" name="preMaterial">珍珠</option>
+				<option value="liao" name="preMaterial">还是珍珠</option>
+				<option value="liao" name="preMaterial">布丁</option>
+				<option value="liao" name="preMaterial">还是珍珠</option>
 			</select>
 			<hr width="15%">
-			<label for="q3">你要什么规格</label>
+			<label for="size">你要什么规格</label>
 			<!-- 规格接口 -->
-			<input type="text" name="size" id="q3">
+			<input type="text" name="size" id="size">
 			<hr width="15%">
 			<div>你还有别的什么要求吗</div>
 			<hr width="15%">
