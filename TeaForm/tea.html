@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" href="tea.css" />
+	</head>
+	<body>
+		<div class="all"><form action="#">
+			<h1>Order your milk tea!</h1>
+			<hr>
+			<label for="q1">你想要什么口味的奶茶?</label>
+			<input type="text" name="q1" id="q1" autofocus minlength="2" maxlength="10">
+			<hr width="15%">
+			<label for="q2">需要几杯？</label>
+			<input type="number" name="q2" id="q2" required min="1" max="4">
+			<hr width="15%">
+			<div>你需要的糖分量?</div>
+			<span>无糖</span><input type="range" min="0" max="9" step="3"/>全糖</span>
+			<hr width="15%">
+			<div>你需要什么顶料?</div>
+			<input type="checkbox" value="liao">冰淇淋
+			<input type="checkbox" value="liao">奶盖
+			<input type="checkbox" value="liao">可可粉
+			<hr width="15%">
+			<div>需要加冰码？</div>
+			<input type="radio" name=ice>Yes
+			<input type="radio" name=ice>No
+			<hr width="15%">
+			<span>你需要加什么料?</span>
+			<select name="liao" id="l">
+				<option value="zhenzhu">珍珠</option>
+				<option value="zhenzhu">还是珍珠</option>
+				<option value="zhenzhu">布丁</option>
+				<option value="zhenzhu">还是珍珠</option>
+			</select>
+			<hr width="15%">
+			<label for="q3">你要什么规格</label><input type="text" name="q3" id="q3">
+			<hr width="15%">
+			<div>你还有别的什么要求吗</div>
+			<hr width="15%">
+			<textarea name="" id="" cols=40" rows="3"></textarea>
+			<hr width="15%">
+			<label for="q4">你的联系方式</label><input type="text" name="q4" id="q4" pattern="1\d{10}$">
+			<hr width="15%">
+			<button>提交</button>
+		</form>
+		</div>
+
+	</body>
+</html>
