@@ -1,7 +1,10 @@
 //sw，sh是单个方块参数，tr，td是网格参数
 let [sw, sh, tr, td] = [20, 20, 30, 30];
-let snake = null;
+let snake = null,
+    food = null,
+    game = null;
 
+//创建方块
 function Square(x, y, classname) {
     this.x = x * sw;
     this.y = y * sh;
@@ -11,7 +14,7 @@ function Square(x, y, classname) {
     this.viewContent.className = this.class;
     this.parent = document.getElementsByClassName("snakeWrap")[0];
 }
-//创建方块
+//写入方块样式
 Square.prototype.create = function () {
     this.viewContent.style.position = "absolute";
     this.viewContent.style.width = sw + "px";
@@ -33,19 +36,23 @@ function Snake() {
     this.directionNum = {
         left: {
             x: -1,
-            y: 0
+            y: 0,
+            rotate: 180
         },
         right: {
             x: +1,
-            y: 0
+            y: 0,
+            rotate: 0
         },
         up: {
             x: 0,
-            y: -1
+            y: -1,
+            rotate: -90
         },
         down: {
             x: 0,
-            y: +1
+            y: +1,
+            rotate: 90
         }
     }//蛇走的方向
 }
@@ -105,38 +112,138 @@ Snake.prototype.getNextPos = function () {
         return;
     }
     // 吃东西
+    if (food && food.pos[0] == nextPos[0] && food.pos[1] == nextPos[1]) {
+        this.strategies.eat.call(this);
+        return;
+    }
 
     // 无事发生
     this.strategies.move.call(this)//调用move函数并将里面的this指向snake（原本指向snake.strategies）
 
-
+    // 蛇行为逻辑
 }
 Snake.prototype.strategies = {
 
-    move: function () {
+    move: function (eating) {
         let newBody = new Square(this.head.x / sw, this.head.y / sh, "snakeBody");
-
+        //更新链表
         newBody.next = this.head.next;
         newBody.next.last = newBody;
         newBody.last = null;
-
+        //删掉旧蛇头
         this.head.remove()
         newBody.create();
-
-        let newHead = (this.head.x / sw + this.direction.x, this.head.y / sh + this.direction.y, "snakeHead")
+        //创建心蛇头更新链表关系
+        let newHead = new Square(this.head.x / sw + this.direction.x, this.head.y / sh + this.direction.y, "snakeHead")
         newHead.next = newBody;
         newHead.last = null;
         newBody.last = newHead;
+        newHead.viewContent.style.transform = 'rotate(' + this.direction.rotate + 'deg)';
+        newHead.create();
+        //更新pos
+        this.pos.splice(0, 0, [this.head.x / sw + this.direction.x, this.head.y / sh + this.direction.y]);
+        this.head = newHead;
+
+        if (!eating) {
+            this.tail.remove();
+            this.tail = this.tail.last;
+            this.pos.pop();
+        }
     },
     eat: function () {
-
+        this.strategies.move.call(this, true);
+        createFood();
+        game.score++;
     },
     die: function () {
-
+        game.over();
     }
 }
 
 
 snake = new Snake();
-snake.init();
-snake.getNextPos();
+
+//食物生成
+function createFood() {
+    //随机生成食物坐标，在容器里且判断是否在蛇身上
+    let x = null;
+    let y = null;
+    let include = true;
+    while (include) {
+        x = Math.round(Math.random() * (td - 1));
+        y = Math.round(Math.random() * (tr - 1));
+
+        snake.pos.forEach(function (value) {
+            if (x != value[0] && y != value[1]) {
+                include = false;
+            }
+        });
+    }
+    //生成食物
+    food = new Square(x, y, 'food');
+    food.pos = [x, y];
+
+    let foodDom = document.querySelector('.food');
+    if (foodDom) {
+        foodDom.style.left = x * sw + 'px';
+        foodDom.style.top = y * sh + 'px';
+    } else {
+        food.create();
+    }
+
+}
+
+//创建游戏逻辑
+function Game() {
+    this.timer = null;
+    this.score = 0;
+}
+//开始游戏初始化
+Game.prototype.init = function () {
+    snake.init();
+    // snake.getNextPos();
+    createFood();
+
+    document.onkeydown = function (ev) {
+        //绑定键盘事件
+        if (ev.which == 37 && snake.direction != snake.directionNum.right) {
+            snake.direction = snake.directionNum.left;
+        } else if (ev.which == 38 && snake.direction != snake.directionNum.down) {
+            snake.direction = snake.directionNum.up;
+        } else if (ev.which == 39 && snake.direction != snake.directionNum.left) {
+            snake.direction = snake.directionNum.right;
+        } else if (ev.which == 40 && snake.direction != snake.directionNum.up) {
+            snake.direction = snake.directionNum.down;
+        }
+
+    }
+    this.start();
+}
+Game.prototype.start = function () {
+    this.timer = setInterval(function () {
+        snake.getNextPos();
+    }, 200);
+}
+//游戏结束
+Game.prototype.over = function () {
+    clearInterval(this.timer);
+    alert('你的得分为:' + this.score);
+    
+    // 重置游戏
+    let snakeWrap = document.querySelector('.snakeWrap');
+    snakeWrap.innerHTML  = '';
+
+    snake = new Snake();
+    game = new Game();
+
+    let startBtnWarp = document.querySelector('.startbtn');
+    startBtnWarp.style.display = 'block';
+}
+//开始游戏
+game = new Game();
+let startBtn = document.querySelector('.startbtn');
+startBtn.onclick = function () {
+    startBtn.style.display = 'none';
+    game.init();
+};
+
