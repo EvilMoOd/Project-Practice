@@ -20,11 +20,7 @@ export default {
 	components: { Last, List, Top },
 	data() {
 		return {
-			todos:[
-				{id:'001',title:'吃饭',done:true},
-				{id:'002',title:'喝酒',done:true},
-				{id:'003',title:'开车',done:true}
-			]
+			todos:JSON.parse(localStorage.getItem('todos'))||[]
 		}
 	},
 	methods: {
@@ -59,6 +55,14 @@ export default {
 			})
 		}
 	},
+	watch:{
+		todos:{
+			deep:true,
+			handler(value){
+				localStorage.setItem('todos',JSON.stringify(value))
+			}
+		}
+	}
 };
 </script>
 
