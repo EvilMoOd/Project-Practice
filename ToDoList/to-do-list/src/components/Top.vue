@@ -8,13 +8,12 @@
 import {nanoid} from 'nanoid'
 export default {
 	name:'Top',
-	props:['addTodo'],
 	methods: {
 		add(e){
 			if(!e.target.value.trim()) return alert("输入点东西吧")
 			const todo = {id:nanoid(),title:e.target.value,done:false};
 			//用父亲的方法，用子类的参数操作父类的对象
-			this.addTodo(todo);
+			this.$emit('addTodo',todo);
 			e.target.value = ''
 		}
 	},

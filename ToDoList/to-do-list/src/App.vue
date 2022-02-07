@@ -2,8 +2,8 @@
 	<div id="root">
 		<div class="todo-container">
 			<div class="todo-wrap">
-				<Top :addTodo="addTodo" />
-				<List :todos="todos" :checkTodo="checkTodo" :deleteTodo="deleteTodo" />
+				<Top @addTodo="addTodo" />
+				<List :todos="todos" />
 				<Last :todos="todos" :checkAllTodo="checkAllTodo" :clearAllTodo="clearAllTodo"/>
 			</div>
 		</div>
@@ -36,6 +36,14 @@ export default {
 				}
 			})
 		},
+		//更新一个Todo
+		updateTodo(id,title){
+			this.todos.forEach((todo) => {
+				if(todo.id === id){
+				todo.title = title;
+				}
+			})
+		},
 		//删除一个todo
 		deleteTodo(id){
 			this.todos = this.todos.filter((todo)=>{
@@ -62,7 +70,17 @@ export default {
 				localStorage.setItem('todos',JSON.stringify(value))
 			}
 		}
-	}
+	},
+	mounted() {
+		this.$bus.$on('checkTodo',this.checkTodo)
+		this.$bus.$on('deleteTodo',this.deleteTodo)
+		this.$bus.$on('updateTodo',this.updateTodo)
+	},
+	beforeDestroy() {
+		this.$bus.$off('checkTodo')
+		this.$bus.$off('deleteTodo')
+		this.$bus.$off('updateTodo')
+	},
 };
 </script>
 
@@ -92,9 +110,21 @@ body {
 	border: 1px solid #bd362f;
 }
 
+.btn-edit {
+	color: #fff;
+	background-color: orange;
+	border: 1px solid rgb(209, 147, 30);
+	margin-right: 5px;
+}
+
 .btn-danger:hover {
 	color: #fff;
 	background-color: #bd362f;
+}
+
+.btn-edit:hover {
+	color: #fff;
+	background-color: rgb(209, 147, 30);
 }
 
 .btn:focus {
