@@ -1,0 +1,6 @@
+# Project-Practice
+练手小项目
+tapbao是学完html和css时仿写的淘宝网页
+teaform和register源自百度前端学院的需求文档
+snake是学完js写的一个小游戏
+todolist是学vue时写的
